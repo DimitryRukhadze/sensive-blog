@@ -25,7 +25,9 @@ class PostQuerySet(models.QuerySet):
             id__in=most_popular_posts_ids
         ).annotate(comments_count=Count('comments'))
 
-        ids_and_comments = posts_with_comments.values_list('id', 'comments_count')
+        ids_and_comments = posts_with_comments.values_list(
+            'id', 'comments_count'
+            )
         count_for_id = dict(ids_and_comments)
 
         for post in self:
@@ -120,5 +122,3 @@ class Comment(models.Model):
         ordering = ['published_at']
         verbose_name = 'комментарий'
         verbose_name_plural = 'комментарии'
-
-
